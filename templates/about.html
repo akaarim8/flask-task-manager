@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}About - Task Manager{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>About This App</h2>
+    <p>This is a simple task management web application built with Flask.</p>
+    
+    <h3>Features:</h3>
+    <ul style="margin: 20px 0; padding-left: 20px;">
+        <li>Add new tasks with titles and descriptions</li>
+        <li>Mark tasks as completed or reopen them</li>
+        <li>Delete tasks you no longer need</li>
+        <li>View all tasks with their creation dates</li>
+        <li>RESTful API endpoint for task data</li>
+    </ul>
+    
+    <h3>Technology Stack:</h3>
+    <ul style="margin: 20px 0; padding-left: 20px;">
+        <li>Backend: Python Flask</li>
+        <li>Frontend: HTML, CSS, JavaScript</li>
+        <li>Templating: Jinja2</li>
+    </ul>
+    
+    <p>This is a demonstration application. In a production environment, you would want to use a proper database instead of in-memory storage.</p>
+</div>
+{% endblock %}
