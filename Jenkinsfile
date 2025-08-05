@@ -50,20 +50,16 @@ pipeline {
         stage('Trivy Scan') {
             steps {
                 sh '''
-                    echo "Running Trivy filesystem scan..."
-                    trivy fs . --format table
-
-                    echo "Running Trivy image scan..."
-                    trivy image --format table \
-                    ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${BUILD_NUMBER}
-
-                    echo "Generating HTML security reports..."
-                    trivy fs . --format template --template "./contrib/html.tpl" --output trivy-fs-report.html
-                    trivy image --format template --template "./contrib/html.tpl" --output trivy-image-report.html \
-                    ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${BUILD_NUMBER}
+                    echo "Running Trivy image scan (high, critical)..."
+                    trivy --severity CRITICAL,HIGH,MEDIUM,LOW --no-progress --format table -o trivy-report.html image ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:latest
 
                     echo "Security scan completed!"
                 '''
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'trivy-*.html', allowEmptyArchive: true
+                }
             }
         }
     }
